@@ -1,42 +1,94 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;          /* Full height for root */
+  width: 100%;           /* Full width */
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Container to center everything vertically and horizontally */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;     /* Full viewport height */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures full screen height */
+  background-color: #f4f9f9; /* Ensures white is always visible */
+}
+
+
+/* Navigation */
+.navigation {
+  background-color: #9acfd4;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 30px; remove margin, instead add padding-bottom on main */
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  font-weight: bold;
+  font-size: 24px;
+  color: #078692;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-links {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.nav-links a {
+  text-decoration: none;
+  color: #333;
 }
 
-.card {
-  padding: 2em;
+.nav-links a:hover {
+  color: #078692;
 }
 
-.read-the-docs {
-  color: #888;
+.btn {
+  background-color: #078692;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
 }
+
+/* Main content */
+.content {
+  flex: 1;                       /* Take remaining vertical space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;       /* Vertically center */
+  align-items: center;           /* Horizontally center */
+  text-align: center;
+  padding: 20px 30px;
+  background-color: #f4f9f9;
+}
+
+.content h1 {
+  color: #078692;
+  margin-bottom: 15px;
+}
+
+.content p {
+  font-size: 18px;
+  color: #555;
+}
+
+/* Other styles unchanged */
+/* ... your form styles, button styles, etc. */
