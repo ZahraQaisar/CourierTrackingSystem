@@ -18,24 +18,23 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;     /* Full viewport height */
+  background-color: #ffffff;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* Ensures full screen height */
-  background-color: #f4f9f9; /* Ensures white is always visible */
+  background-color: #ffffff; /* Ensures white is always visible */
 }
 
 
 /* Navigation */
 .navigation {
   background-color: #9acfd4;
-  padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* margin-bottom: 30px; remove margin, instead add padding-bottom on main */
 }
 
 .logo {
@@ -70,14 +69,14 @@ body {
 
 /* Main content */
 .content {
-  flex: 1;                       /* Take remaining vertical space */
+  flex: 1;                       
   display: flex;
   flex-direction: column;
-  justify-content: center;       /* Vertically center */
-  align-items: center;           /* Horizontally center */
+  justify-content: center;       
+  align-items: center;           
   text-align: center;
   padding: 20px 30px;
-  background-color: #f4f9f9;
+  background-color: #ffffff;
 }
 
 .content h1 {
@@ -90,5 +89,111 @@ body {
   color: #555;
 }
 
-/* Other styles unchanged */
-/* ... your form styles, button styles, etc. */
+
+/* Form Styling */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: black;
+}
+
+.form-group textarea {
+  height: 100px;
+}
+
+button[type="submit"] {
+  background-color: #078692;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+
+button[type="submit"]:hover {
+  background-color: #9acfd4;
+}
+
+/* Status display */
+.status-display {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.status-display p {
+  margin-bottom: 8px;
+}
+
+  /* Navigation */
+.navigation {
+  background-color: #9acfd4;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 24px;
+  color: #078692;
+}
+
+.nav-links {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-links a:hover {
+  color: #078692;
+}
+
+.btn {
+  background-color: #078692;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
