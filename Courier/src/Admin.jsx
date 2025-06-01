@@ -1,19 +1,46 @@
-import React from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import './App.css';
 
 function Admin() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios.post("http://localhost:3000/adminlogin", { email, password })
+      .then((response) => {
+        if (response.status === 200) {
+          navigate('/update');
+        }
+        else{
+            alert("Login failed");
+        }
+      })
+      .catch((error) => {
+        alert("Login failed");
+        console.error(error);
+      });
+  }
+
+
   return (
     <div className="form-container">
       <h2>Admin Login</h2>
-      <form action="update">
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" required />
+          <label htmlFor="username">Email:</label>
+          <input type="email" id="email" name="email" 
+          onChange = { (e) => setEmail(e.target.value) } required />
         </div>
 
         <div className="form-group">
           <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" required />
+          <input type="password" id="password" name="password"
+          onChange = { (e) => setPassword(e.target.value) } required />
         </div>
 
         <button type="submit">Login</button>

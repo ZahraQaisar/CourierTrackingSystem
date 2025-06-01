@@ -4,6 +4,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");  
 const UserModel = require('./models/User');
+const TrackModel = require('./models/Track');
 require('dotenv').config();
 
 const app = express();
@@ -18,19 +19,22 @@ mongoose.connect(process.env.MONGODB_URL)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error('MongoDB Connection Error:', err));
 
+// =====================================================================================
+
 app.post("/register", (req, res) => {
   const { name, email, password } = req.body;
   console.log("Received data:", req.body);
 
   bcrypt.hash(password, 10)
     .then(hashedPassword => {
-      UserModel.create({ name, email, password: hashedPassword })
+      UserModel.create({ name, email, password: hashedPassword , status: "user"})
         .then(user => res.json(user))
         .catch(err => res.status(400).json(err));
     })
     .catch(err => res.status(500).json(err));
 });
 
+// =====================================================================================
 
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -70,6 +74,71 @@ app.post("/login", (req, res) => {
       res.status(500).json({ message: "Database error" });
     });
 });
+
+// =====================================================================================
+
+app.post("/adminlogin", async (req, res) => {
+  const { email, password } = req.body;
+  console.log("Login attempt:", email, password);
+
+  try {
+    const user = await UserModel.findOne({ email });
+    console.log("Found user:", user);
+
+    if (!user) return res.status(400).json({ message: "User not found" });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    console.log("Password match:", isMatch);
+
+    if (!isMatch) return res.status(400).json({ message: "Password incorrect" });
+
+    if (user.status !== "admin") {
+      return res.status(403).json({ message: "Authorization error: Not an admin" });
+    }
+
+    res.status(200).json({
+      message: "Admin login successful",
+      name: user.name,
+      email: user.email,
+      status: user.status,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// =====================================================================================
+
+app.post("/update", async (req, res) => {
+  const { trackingID, delivery_time, parcel_status, location } = req.body;
+
+  console.log("Received trackingID:", trackingID);
+
+  try {
+    const parcel = await TrackModel.findOne({ tracking_number: trackingID });
+
+    if (!parcel) {
+      return res.status(404).json({ message: "Invalid tracking ID" });
+    }
+
+    parcel.parcel_status = parcel_status;
+    parcel.delivery_date = delivery_time;
+    parcel.location = location;
+
+    await parcel.save(); 
+
+    res.status(200).json({ message: "Parcel updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
+// =====================================================================================
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
