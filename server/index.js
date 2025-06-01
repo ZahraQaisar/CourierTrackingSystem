@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 const UserModel = require('./models/User');
 const TrackModel = require('./models/Track');
 const ContactModel = require('./models/Contact');
+const BookingModel = require("./models/ParcelBooking");
+const ConfirmModel = require("./models/Confirmation");
 const { signinValidation, signupValidation } = require("./middlewares/myValidator");
 require('dotenv').config();
 
@@ -178,6 +180,30 @@ app.post('/contact', async (req, res) => {
   } catch (error) {
     console.error('Error saving contact message:', error);
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// =====================================================================================
+
+app.post("/parcelbooking", async (req, res) => {
+  try {
+    const booking = new BookingModel(req.body);
+    await booking.save();
+    res.send("Parcel booked successfully!");
+  } catch (err) {
+    res.status(500).send("Error saving data");
+  }
+});
+
+// =====================================================================================
+
+app.post("/confirmation", async (req, res) => {
+  try {
+    const confirmation = new ConfirmModel(req.body);
+    await confirmation.save();
+    res.send("Delivery confirmation saved!");
+  } catch (e) {
+    res.status(500).send("Error saving delivery confirmation");
   }
 });
 

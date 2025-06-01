@@ -9,6 +9,8 @@ import Track from './Track';
 import Contact from './Contact';
 import Admin from './Admin';
 import Update from './Update';
+import ParcelBookingForm from './Booking';
+import DeliveryConfirmationForm from './Confirmation';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
             <li><a href="/track">Track</a></li>
             <li><a href="/contact">Contact Us</a></li>
             <li><a href="/admin">Admin</a></li>
+            <li><a href="/booking">Book</a></li>
+            <li><a href="/confirmation">Confirm</a></li>
           </ul>
           <a href="/register" className="btn">Get Started</a>
         </nav>
@@ -36,6 +40,8 @@ function App() {
           <Route path='/contact'   element={<Contact />}>  </Route> 
           <Route path='/admin'   element={<Admin />}>  </Route> 
           <Route path='/update'   element={<Update />}>  </Route> 
+          <Route path='/booking'   element={<ParcelBookingForm />}>  </Route> 
+          <Route path='/confirmation'   element={<DeliveryConfirmationForm />}>  </Route> 
                           
         </Routes>
       </BrowserRouter>
