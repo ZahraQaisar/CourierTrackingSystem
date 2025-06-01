@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");  
 const UserModel = require('./models/User');
 const TrackModel = require('./models/Track');
+const ContactModel = require('./models/Contact');
+const { signinValidation, signupValidation } = require("./middlewares/myValidator");
 require('dotenv').config();
 
 const app = express();
@@ -15,13 +17,15 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
+// =====================================================================================
+
 mongoose.connect(process.env.MONGODB_URL)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error('MongoDB Connection Error:', err));
 
 // =====================================================================================
 
-app.post("/register", (req, res) => {
+app.post("/register", signupValidation ,(req, res) => {
   const { name, email, password } = req.body;
   console.log("Received data:", req.body);
 
@@ -36,7 +40,7 @@ app.post("/register", (req, res) => {
 
 // =====================================================================================
 
-app.post("/login", (req, res) => {
+app.post("/login",signinValidation, (req, res) => {
   const { email, password } = req.body;
 
   UserModel.findOne({ email })
@@ -138,6 +142,46 @@ app.post("/update", async (req, res) => {
 
 // =====================================================================================
 
+app.post('/track', async (req, res) => {
+  const { trackingID } = req.body;
+
+  try {
+    const parcel = await TrackModel.findOne({ tracking_number: trackingID });
+
+    if (!parcel) {
+      return res.status(404).json({ message: 'Invalid Tracking ID' });
+    }
+
+    res.json({
+      parcel_status: parcel.parcel_status,
+      delivery_date: parcel.delivery_date,
+      location: parcel.location
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+// =====================================================================================
+
+app.post('/contact', async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+
+    const contact = new ContactModel({ name, email, message });
+    await contact.save();
+
+    res.status(201).json({ message: 'Message sent successfully' });
+  } catch (error) {
+    console.error('Error saving contact message:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// =====================================================================================
 
 
 app.listen(PORT, () => {

@@ -13,7 +13,7 @@ import Update from './Update';
 function App() {
   return (
     <div>
-        <nav className="navigation">
+        <nav className="navigation" >
           <div className="logo">CourierBox</div>
           <ul className="nav-links">
             <li><a href="/">Home</a></li>
