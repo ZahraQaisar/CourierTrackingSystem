@@ -27,35 +27,34 @@ function Track() {
 
   return (
     <div className="form-container">
-        <h2>Track Your Parcel</h2>
+      <h2>Track Your Parcel</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="tracking-id">Tracking Number:</label>
+          <input
+            type="text"
+            id="tracking-id"
+            name="tracking-id"
+            value={trackingID}
+            onChange={(e) => setTrackingID(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Track</button>
+      </form>
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-              <label htmlFor="tracking-id">Tracking Number:</label>
-              <input
-                type="text"
-                id="tracking-id"
-                name="tracking-id"
-                value={trackingID}
-                onChange={(e) => setTrackingID(e.target.value)}
-                required
-              />
-          </div>
-          <button type="submit">Track</button>
-        </form>
+      {error && (
+        <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>
+      )}
 
-        {error && (
-          <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>
-        )}
-
-        {parcelData && (
-          <div className="status-display">
-            <h3>Parcel Status:</h3>
-            <p><strong>Status:</strong> {parcelData.parcel_status}</p>
-            <p><strong>Estimated Delivery Date:</strong> {parcelData.delivery_date}</p>
-            <p><strong>Current Location:</strong> {parcelData.location}</p>
-          </div>
-        )}
+      {parcelData && (
+        <div className="status-display">
+          <h3>Parcel Status:</h3>
+          <p><strong>Status:</strong> {parcelData.parcel_status}</p>
+          {/* <p><strong>Estimated Delivery Date:</strong> {parcelData.delivery_date}</p> */}
+          <p><strong>Address:</strong> {parcelData.address}</p>
+        </div>
+      )}
     </div>
   );
 }

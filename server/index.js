@@ -116,27 +116,26 @@ app.post("/adminlogin", async (req, res) => {
 
 // =====================================================================================
 
-app.post("/update", async (req, res) => {
-  const { trackingID, delivery_time, parcel_status, location } = req.body;
 
-  console.log("Received trackingID:", trackingID);
+app.post("/update", async (req, res) => {
+  const { trackingID, parcel_status, address } = req.body;
 
   try {
-    const parcel = await TrackModel.findOne({ tracking_number: trackingID });
+    // Pehle check kar lo ke record exist karta hai ya nahi
+    const parcel = await BookingModel.findById(trackingID);
 
     if (!parcel) {
-      return res.status(404).json({ message: "Invalid tracking ID" });
+      return res.status(404).json({ message: "Tracking ID not found" });
     }
 
-    parcel.parcel_status = parcel_status;
-    parcel.delivery_date = delivery_time;
-    parcel.location = location;
-
-    await parcel.save(); 
+    await BookingModel.updateOne(
+      { _id: trackingID },
+      { status: parcel_status, address: address }
+    );
 
     res.status(200).json({ message: "Parcel updated successfully" });
   } catch (error) {
-    console.error(error);
+    console.error("Update error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -148,16 +147,16 @@ app.post('/track', async (req, res) => {
   const { trackingID } = req.body;
 
   try {
-    const parcel = await TrackModel.findOne({ tracking_number: trackingID });
+    const parcel = await BookingModel.findById(trackingID);
 
     if (!parcel) {
       return res.status(404).json({ message: 'Invalid Tracking ID' });
     }
 
     res.json({
-      parcel_status: parcel.parcel_status,
+      parcel_status: parcel.status,
       delivery_date: parcel.delivery_date,
-      location: parcel.location
+      address: parcel.address
     });
 
   } catch (error) {
@@ -166,16 +165,13 @@ app.post('/track', async (req, res) => {
   }
 });
 
-
 // =====================================================================================
 
 app.post('/contact', async (req, res) => {
+  const { name, email, message } = req.body;
+
   try {
-    const { name, email, message } = req.body;
-
-    const contact = new ContactModel({ name, email, message });
-    await contact.save();
-
+    await ContactModel.create({ name, email, message });
     res.status(201).json({ message: 'Message sent successfully' });
   } catch (error) {
     console.error('Error saving contact message:', error);
@@ -184,28 +180,32 @@ app.post('/contact', async (req, res) => {
 });
 
 // =====================================================================================
-
 app.post("/parcelbooking", async (req, res) => {
+  const { senderName, receiverName, address, weight, type, charges } = req.body;
+
   try {
-    const booking = new BookingModel(req.body);
-    await booking.save();
-    res.send("Parcel booked successfully!");
+    await BookingModel.create({ senderName, receiverName, address, weight, type, charges, status: "Pending"});
+    res.status(200).send("Parcel booked successfully!");
   } catch (err) {
     res.status(500).send("Error saving data");
   }
 });
 
+
 // =====================================================================================
 
 app.post("/confirmation", async (req, res) => {
+  const { trackingId, receiverSignature, deliveryDate } = req.body;
+
   try {
-    const confirmation = new ConfirmModel(req.body);
-    await confirmation.save();
-    res.send("Delivery confirmation saved!");
-  } catch (e) {
+    await ConfirmModel.create({ trackingId, receiverSignature, deliveryDate });
+    res.status(200).send("Delivery confirmation saved!");
+  } catch (error) {
     res.status(500).send("Error saving delivery confirmation");
   }
 });
+
+
 
 // =====================================================================================
 

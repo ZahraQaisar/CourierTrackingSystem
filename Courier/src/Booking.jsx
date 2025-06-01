@@ -16,15 +16,15 @@ function ParcelBookingForm() {
    const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post("http://localhost:3000/parcelbooking", {senderName,receiverName,address,weight,type,charges,})
+    axios.post("http://localhost:3000/parcelbooking", {senderName,receiverName,address,weight,type,charges})
     .then(result => {
         if (result.status === 201 || result.status === 200) {
-        navigate("/track");  // Go to Track page
+        navigate("/track"); 
         }
-        console.log(result);  // Optional: For debugging
+        console.log(result); 
     })
     .catch(err => {
-        console.log(err);  // Error handling
+        console.log(err);  
     });
     };
 
