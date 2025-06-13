@@ -1,0 +1,227 @@
+async — function hai jo background mein kaam smoothly chalane ke liye hota hai.
+await isliye hota hai taake pehla kaam complete ho jaye, phir next kaam shuru ho.
+
+process Node.js ka built-in object hai jo current running process (program) ki information deta hai.
+process.env us process ke environment variables ko access karta hai.
+
+1. app.post() – HTTP POST request handle karne ke liye hota hai.
+
+2. /register – Route path hai jahan se user registration request aati hai.
+
+3. signupValidation – Request ke data ko validate karta hai (jaise email ya password sahi hai ya nahi).
+
+4. req.body – User ka bheja hua data hota hai (form inputs).
+
+5. console.log("Received data:", req.body) – Server par bheje gaye data ko console mein dikhane ke liye.
+
+6. bcrypt.hash(password, 10) – Password ko encrypt (secure) karne ke liye hota hai.
+
+7. 10 – Salt rounds hoti hain, jitni zyada utni strong hashing (10 standard hai).
+
+8. UserModel.create({...}) – Database mein naya user insert karta hai.
+
+9. status: "user" – User ka role define karta hai (admin ya user).
+
+10. .then() – Jab promise successfully complete ho jaye to uska result handle karta hai.
+
+11. .catch() – Error handle karne ke liye hota hai agar koi problem aaye.
+
+1. UserModel.findOne({ email }) – Database mein user ko email ke zariye dhoondta hai.
+
+2. if (!user) – Check karta hai ke user exist karta hai ya nahi.
+
+3. res.status(400).json({ message: "User does not exist" }) – Agar user nahi milta to client ko error response deta hai.
+
+4. bcrypt.compare(password, user.password) – Entered password ko hashed password ke sath compare karta hai.
+
+5. if (isPasswordEqual) – Check karta hai ke password match hua ya nahi.
+
+6. jwt.sign(...) – JWT token generate karta hai authentication ke liye.
+
+7. process.env.JWT_SECRET_KEY – JWT sign karne ke liye secure key environment variable se leta hai.
+
+8. { expiresIn: "24h" } – JWT token ki validity 24 hours tak hoti hai.
+
+9. res.status(200).json({...}) – Login successful hone par token aur user info client ko bhejta hai.
+
+10. res.status(400).json({ message: "Password is incorrect" }) – Agar password galat ho to error message bhejta hai.
+
+11. console.error(...) – Server console par error print karta hai debugging ke liye.
+
+400 = Client side error (galti user ki taraf se)
+
+bcrypt - ek library hai jo passwords ko securely (encrypt) karne ke liye use hoti hai.
+
+200 error nahi hota — 200 ek success status code hota hai.
+
+1. async (req, res) – Function ko asynchronous banata hai taake await use kiya ja sake.
+
+2. await UserModel.findOne({ email }) – User ko database se email ke zariye dhoondta hai (asynchronously).
+
+3. await bcrypt.compare(...) – Password comparison ko asynchronous tareeqay se karta hai.
+
+4. user.status !== "admin" – Check karta hai ke user admin hai ya nahi.
+
+5. res.status(403).json(...) – 403 = Forbidden – Jab user allowed kaam nahi kar sakta (e.g. admin panel access without admin rights).
+
+6. res.status(200).json(...) – Successful admin login ka response deta hai.
+
+7. try { ... } catch (err) { ... } – Error ko safely handle karta hai bina app crash kiye.
+
+8. res.status(500).json(...) – 500 = Internal Server Error – Jab server side pe koi issue ho (jaise database ya code error).
+
+req
+(Request Object)
+→ Client se server ko aane wala data.
+Example: form inputs, URL params, query strings.
+
+res
+(Response Object)
+→ Server se client ko jaane wala response.
+Example: status codes, messages, JSON data.
+
+res.status(404) – 404 = Not Found – Jab requested data (tracking ID) database mein nahi milta.
+
+app.listen()
+👉 Basically aik function hai
+👉 Server ko start karta hai
+👉 Specific port pe request sunta hai
+
+
+useState("") → React ka function hai jo value hold karta hai aur "" iski default value hai.
+
+
+✅ handleSubmit
+🔹 Function hai
+🔹 Form submit hone par data send karta hai (axios se)
+
+✅ navigate
+🔹 Function hai (React Router ka)
+🔹 Page ko programmatically dusre route pe le jaata hai
+🔸 navigate("/track") → "track" page pe redirect karta hai
+
+✅ setSenderName, setReceiverName, etc.
+🔹 React state update karne ke functions hain
+🔹 set ka matlab hai: value ko update karna
+
+✅ Square Brackets [] in const [x, setX]
+🔹 Ye array destructuring hai
+🔹 useState() 2 cheeze return karta hai: [value, setValue]
+🔹 Unko todhne ke liye square brackets use karte hain
+
+✅ set ke baad capital letter
+🔹 Ye ek naming convention hai
+🔹 Jaise senderName ka setter hota hai setSenderName
+
+✅ const
+🔹 JavaScript ka keyword hai
+🔹 Constant variable banata hai — iski value dobara assign nahi hoti
+
+✅ axios
+🔹 Ek library hai
+🔹 HTTP request bhejne ke liye use hoti hai (GET, POST, PUT, DELETE)
+
+✅ axios.post(...)
+🔹 POST request bhejta hai server ko
+🔹 Data ko backend/server par send karta hai
+
+✅ "http://localhost:3000/..."
+🔹 Ye backend ka URL hota hai
+🔹 Jahan pe data bhejna hota hai (API endpoint)
+
+✅ { ... } (Curly Brackets)
+🔹 JavaScript mein object ya code block define karte hain
+🔸 Example 1: { name, email } → Object
+🔸 Example 2: function() { ... } → Function ka block
+
+✅ form onSubmit={handleSubmit}
+🔹 Form submit hone pe handleSubmit function run hota hai
+🔹 React ka standard method hai form handle karne ka
+
+✅ (e)
+🔹 e means event object
+🔹 JavaScript form ya input event hone par ye deta hai
+
+✅ e.preventDefault()
+🔹 Default form ka behavior rokta hai (jaise reload hona)
+🔹 Page ko refresh hone se bachata hai
+
+✅ onChange={e => setReceiverName(e.target.value)}
+🔹 Jab user input field mein kuch likhta hai
+🔹 To new value setReceiverName() ko milti hai
+
+✅ e.target.value
+🔹 User ne input field mein jo likha, wo value yahan milti hai
+
+
+✅ htmlFor kya karta hai?
+Heading: htmlFor — label aur input field ko link karta hai
+Detail:
+🔹 Jab label tag mein htmlFor="senderName" likha hota hai,
+🔹 To wo bind ho jata hai us input field se jiska id="senderName" ho.
+
+✅ result.status === 201 || result.status === 200
+🔹 Backend se milne wale response status code check karta hai
+🔹 200 = Success, 201 = Created
+
+✅ catch(err => console.log(err))
+🔹 Agar error aaye request bhejne mein
+🔹 To wo console mein print hoga — debugging ke liye
+
+
+✅ mongoose
+🔹 MongoDB ke sath interact karne wali library hai.
+🔹 Data ko model aur schema ki form mein manage karti hai.
+
+✅ mongoose.Schema
+🔹 Data structure define karta hai (jaise database mein field types).
+🔹 Example: name, email, message sab String type hain.
+
+✅ ContactSchema
+🔹 Ek schema object hai jo contact form ke data structure ko define karta hai.
+
+✅ mongoose.model('Contact', ContactSchema)
+🔹 Model banata hai jo database ke 'Contact' collection ko represent karta hai.
+🔹 Iss model se hum CRUD operations karte hain.
+
+✅ module.exports = ContactModel
+🔹 ContactModel ko dusre files mein use karne ke liye export karta hai.
+
+
+✅ Joi
+🔹 Data validation ke liye library hai.
+🔹 User input ko check karta hai ke sahi format mein hai ya nahi.
+
+✅ signupValidation
+🔹 Middleware function hai.
+🔹 Signup form ka data validate karta hai (name, email, password).
+
+✅ signinValidation
+🔹 Middleware function hai.
+🔹 Signin form ka data validate karta hai (email, password).
+
+✅ Joi.object({...})
+🔹 Schema banata hai jisme fields aur unke rules define hote hain.
+🔹 Example: name string hona chahiye, min 3 aur max 150 characters.
+
+✅ schema.validate(req.body)
+🔹 Request body ko schema ke against check karta hai.
+🔹 Agar validation fail ho to error deta hai.
+
+✅ res.status(400).json({...})
+🔹 Agar validation error aaye to client ko 400 Bad Request bhejta hai.
+🔹 Saath mein error details bhi bhejta hai.
+
+✅ next()
+🔹 Middleware chain mein agla function call karta hai.
+🔹 Validation successful hone par request aage badhta hai.
+
+✅ module.exports = {...}
+🔹 Functions ko dusri files mein use karne ke liye export karta hai.
+
+mongoose.connect() function MongoDB database se connection establish karta hai using the URL stored in environment variable process.env.MONGODB_URL.
+
+
+“CORS backend mein lagate hain taake dusre domains (like React frontend) se securely request accept ki ja sake. Agar CORS na ho to browser request block kar deta hai.”
+
+"const app = express(); se hum Express ka instance banate hain jo pura backend server banata hai. Uske baad isi app object se hum routes, middleware aur server run karte hain."

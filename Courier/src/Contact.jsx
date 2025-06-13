@@ -8,7 +8,7 @@ function Contact() {
     const [message, setMessage] = useState('');
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
 
         axios.post("http://localhost:3000/contact", {name,email,message})
     }

@@ -1,4 +1,3 @@
-const { json } = require("express");
 const Joi = require("joi");
 
 const signupValidation = (req, res, next) => {
