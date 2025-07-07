@@ -88,7 +88,7 @@ app.listen()
 👉 Specific port pe request sunta hai
 
 
-useState("") → React ka function hai jo value hold karta hai aur "" iski default value hai.
+useState("") → React ka function hai jo value hold karta hai aur "" iski defa=ult value hai.
 
 
 ✅ handleSubmit
@@ -173,51 +173,51 @@ Detail:
 🔹 MongoDB ke sath interact karne wali library hai.
 🔹 Data ko model aur schema ki form mein manage karti hai.
 
-✅ mongoose.Schema
-🔹 Data structure define karta hai (jaise database mein field types).
-🔹 Example: name, email, message sab String type hain.
+mongoose.Schema
+Data structure define karta hai (jaise database mein field types).
+Example: name, email, message sab String type hain.
 
-✅ ContactSchema
-🔹 Ek schema object hai jo contact form ke data structure ko define karta hai.
+ContactSchema
+Ek schema object hai jo contact form ke data structure ko define karta hai.
 
-✅ mongoose.model('Contact', ContactSchema)
-🔹 Model banata hai jo database ke 'Contact' collection ko represent karta hai.
-🔹 Iss model se hum CRUD operations karte hain.
+mongoose.model('Contact', ContactSchema)
+Model banata hai jo database ke 'Contact' collection ko represent karta hai.
+Iss model se hum CRUD operations karte hain.
 
-✅ module.exports = ContactModel
-🔹 ContactModel ko dusre files mein use karne ke liye export karta hai.
+module.exports = ContactModel
+ContactModel ko dusre files mein use karne ke liye export karta hai.
 
 
-✅ Joi
-🔹 Data validation ke liye library hai.
-🔹 User input ko check karta hai ke sahi format mein hai ya nahi.
+Joi
+Data validation ke liye library hai.
+User input ko check karta hai ke sahi format mein hai ya nahi.
 
-✅ signupValidation
-🔹 Middleware function hai.
-🔹 Signup form ka data validate karta hai (name, email, password).
+signupValidation
+Middleware function hai.
+Signup form ka data validate karta hai (name, email, password).
 
-✅ signinValidation
-🔹 Middleware function hai.
-🔹 Signin form ka data validate karta hai (email, password).
+signinValidation
+Middleware function hai.
+Signin form ka data validate karta hai (email, password).
 
-✅ Joi.object({...})
-🔹 Schema banata hai jisme fields aur unke rules define hote hain.
-🔹 Example: name string hona chahiye, min 3 aur max 150 characters.
+Joi.object({...})
+Schema banata hai jisme fields aur unke rules define hote hain.
+Example: name string hona chahiye, min 3 aur max 150 characters.
 
-✅ schema.validate(req.body)
-🔹 Request body ko schema ke against check karta hai.
-🔹 Agar validation fail ho to error deta hai.
+schema.validate(req.body)
+Request body ko schema ke against check karta hai.
+Agar validation fail ho to error deta hai.
 
-✅ res.status(400).json({...})
-🔹 Agar validation error aaye to client ko 400 Bad Request bhejta hai.
-🔹 Saath mein error details bhi bhejta hai.
+res.status(400).json({...})
+Agar validation error aaye to client ko 400 Bad Request bhejta hai.
+Saath mein error details bhi bhejta hai.
 
-✅ next()
-🔹 Middleware chain mein agla function call karta hai.
-🔹 Validation successful hone par request aage badhta hai.
+next()
+Middleware chain mein agla function call karta hai.
+Validation successful hone par request aage badhta hai.
 
-✅ module.exports = {...}
-🔹 Functions ko dusri files mein use karne ke liye export karta hai.
+module.exports = {...}
+Functions ko dusri files mein use karne ke liye export karta hai.
 
 mongoose.connect() function MongoDB database se connection establish karta hai using the URL stored in environment variable process.env.MONGODB_URL.
 
